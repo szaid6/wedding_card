@@ -1,6 +1,6 @@
 <img src="assets/icon.svg" width="64" height="64" alt="">
 
-# zaid weeding card
+# zaid wedding card
 
 Animated digital wedding invitations for an Indian Muslim wedding, traditional with a modern finish: carved palace doors that swing open, Bismillah calligraphy, an illustrated bride and groom under a Mughal arch, hanging lanterns, falling rose petals, and ivory arched cards on an emerald and gold Islamic pattern. Each JSON file in `data/invitations/` becomes its own page at
 `/invite/<file-name>`.
