@@ -38,11 +38,14 @@ export function ScratchCard({
   date,
   time,
   label,
+  onReveal,
 }: {
   theme: TemplateTheme;
   date: string;
   time: string;
   label: string;
+  /** Fired once the foil has been scratched away. */
+  onReveal?: () => void;
 }) {
   const { t, locale } = useI18n();
   const wrapRef = useRef<HTMLDivElement>(null);
@@ -51,6 +54,10 @@ export function ScratchCard({
   const last = useRef<{ x: number; y: number } | null>(null);
   const moves = useRef(0);
   const [revealed, setRevealed] = useState(false);
+
+  useEffect(() => {
+    if (revealed) onReveal?.();
+  }, [revealed, onReveal]);
 
   const paint = useCallback(() => {
     const canvas = canvasRef.current;
@@ -243,7 +250,7 @@ export function ScratchCard({
         {revealed && <Confetti colors={theme.confetti} />}
       </div>
       {!revealed && (
-        <p className="mt-4 text-xs uppercase tracking-[0.2em] text-muted/80 rtl:text-sm">{t.scratchHint}</p>
+        <p className="mt-4 text-xs uppercase tracking-[0.2em] text-cream/60 rtl:text-sm">{t.scratchHint}</p>
       )}
     </div>
   );

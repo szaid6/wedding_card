@@ -6,13 +6,12 @@ import { useEffect, useState } from "react";
 import { useI18n } from "@/lib/i18n";
 import type { Person } from "@/lib/invitation";
 import { ArchFrame, Crescent, FloralSwag, Lantern, Medallion, Skyline } from "./Decor";
-import { Ornament } from "./Section";
 
 type Phase = "closed" | "opening" | "revealed";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 const DOOR_SECONDS = 2;
-/** The names start appearing while the doors are still swinging. */
+/** The cover text starts appearing while the doors are still swinging. */
 const REVEAL_AFTER_MS = 1200;
 
 export const BISMILLAH = "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ";
@@ -57,7 +56,7 @@ export function IntroHero({
   const initials: [string, string] = [[...first.name][0] ?? "", [...second.name][0] ?? ""];
 
   return (
-    <section className="relative flex h-svh min-h-[620px] w-full flex-col items-center justify-center overflow-hidden bg-emerald [perspective:1600px]">
+    <section className="chapter relative flex h-svh w-full flex-col items-center justify-center overflow-hidden bg-emerald [perspective:1600px]">
       {/* Night sky: pattern, glow, crescent, lanterns and a garland across the top. */}
       <div className="islamic-pattern absolute inset-0" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_42%,rgba(230,201,126,0.22),transparent_62%)]" />
@@ -72,7 +71,7 @@ export function IntroHero({
       <Crescent className="absolute right-[22%] top-[9%] size-7 text-gold-light/80" />
 
       <motion.div
-        className="pointer-events-none relative z-10 flex w-full flex-col items-center px-8 pt-8 text-center"
+        className="pointer-events-none relative z-10 flex w-full flex-col items-center px-8 text-center"
         initial={false}
         animate={{ opacity: revealed ? 1 : 0, y: revealed ? 0 : 30 }}
         transition={{ duration: 1.4, ease }}
@@ -91,21 +90,11 @@ export function IntroHero({
 
         {headline && (
           <Reveal show={revealed} delay={0.35}>
-            <p className="mt-5 whitespace-pre-line font-calligraphic text-xl italic text-cream/90">
+            <p className="mt-5 whitespace-pre-line font-calligraphic text-2xl italic text-cream/90">
               {headline}
             </p>
           </Reveal>
         )}
-        <Reveal show={revealed} delay={0.55}>
-          <h1 className="mt-1 flex flex-wrap items-baseline justify-center gap-x-3 font-names text-5xl leading-tight text-gold-light rtl:text-5xl rtl:leading-[1.5]">
-            <span>{first.name}</span>
-            <span className="text-3xl text-cream/80 rtl:text-4xl">{t.and}</span>
-            <span>{second.name}</span>
-          </h1>
-        </Reveal>
-        <Reveal show={revealed} delay={0.75}>
-          <Ornament wide className="mt-3" />
-        </Reveal>
       </motion.div>
 
       {/* Carved palace doors until the medallion is tapped. */}

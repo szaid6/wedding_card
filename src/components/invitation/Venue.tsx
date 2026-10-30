@@ -10,26 +10,33 @@ export function Venue({ venue }: { venue: NonNullable<InvitationData["venue"]> }
   const embed = `https://maps.google.com/maps?q=${encodeURIComponent(query)}&z=15&hl=${lang}&output=embed`;
 
   return (
-    <div>
-      <p className="mb-2 font-calligraphic text-3xl font-medium text-primary">{venue.name}</p>
-      {venue.address && <p className="whitespace-pre-line text-muted">{venue.address}</p>}
-      <div className="mx-auto mt-8 overflow-hidden rounded-xl border-2 border-gold/70 bg-field p-1 shadow-[0_16px_36px_-18px_rgba(0,0,0,0.5)]">
+    <div className="flex min-h-svh w-full flex-col">
+      <div className="px-8 pb-6 pt-20">
+        <p className="font-display text-[11px] uppercase tracking-[0.35em] text-gold rtl:text-sm">{t.venue}</p>
+        <p className="mt-4 font-names text-5xl leading-tight text-gold-light rtl:text-4xl rtl:leading-snug">
+          {venue.name}
+        </p>
+        {venue.address && (
+          <p className="mt-3 whitespace-pre-line text-cream/70">{venue.address}</p>
+        )}
+        <a
+          href={mapsUrl}
+          target="_blank"
+          rel="noreferrer"
+          className="mt-6 inline-flex h-11 items-center justify-center border border-gold/70 px-6 font-display text-xs uppercase tracking-[0.2em] text-gold-light transition hover:bg-gold/10 rtl:text-sm"
+        >
+          {t.viewOnMaps}
+        </a>
+      </div>
+      <div className="relative mt-auto min-h-[42svh] flex-1">
         <iframe
           title={t.mapOf(venue.name)}
           src={embed}
-          className="block h-64 w-full rounded-lg"
+          className="pointer-events-none absolute inset-0 size-full border-0"
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
         />
       </div>
-      <a
-        href={mapsUrl}
-        target="_blank"
-        rel="noreferrer"
-        className="mt-8 inline-flex h-11 items-center justify-center rounded-full border border-gold bg-emerald px-6 font-display text-xs uppercase tracking-[0.2em] text-gold-light shadow-[0_10px_24px_-10px_rgba(0,0,0,0.6)] transition hover:-translate-y-0.5 rtl:text-sm"
-      >
-        {t.viewOnMaps}
-      </a>
     </div>
   );
 }

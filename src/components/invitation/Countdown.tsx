@@ -20,7 +20,7 @@ export function Countdown({ date, time, timezone }: { date: string; time: string
   }, []);
 
   if (now !== null && now >= target) {
-    return <p className="font-calligraphic text-2xl italic text-primary">{t.celebrationBegun}</p>;
+    return <p className="font-calligraphic text-2xl italic text-cream">{t.celebrationBegun}</p>;
   }
 
   const left = now === null ? 0 : target - now;
@@ -32,19 +32,11 @@ export function Countdown({ date, time, timezone }: { date: string; time: string
   });
 
   return (
-    <div className="flex justify-center gap-2" role="timer" aria-live="off">
+    <div className="flex justify-center gap-6" role="timer" aria-live="off">
       {values.map(({ label, value }) => (
-        <div key={label} className="flex flex-col items-center">
-          <div
-            className="flex min-w-16 items-center justify-center rounded-t-full rounded-b-lg border-2 border-gold/70 bg-emerald px-2 pb-3 pt-5 shadow-[0_10px_24px_-12px_rgba(0,0,0,0.5)]"
-          >
-            <span className="font-display text-2xl font-medium tabular-nums text-gold-light">
-              {value}
-            </span>
-          </div>
-          <p className="mt-2 text-[10px] uppercase tracking-[0.2em] text-muted rtl:text-xs">
-            {label}
-          </p>
+        <div key={label} className="flex min-w-12 flex-col items-center">
+          <span className="font-display text-3xl font-medium tabular-nums text-gold-light">{value}</span>
+          <p className="mt-1 text-[10px] uppercase tracking-[0.18em] text-cream/55 rtl:text-xs">{label}</p>
         </div>
       ))}
     </div>

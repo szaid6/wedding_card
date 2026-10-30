@@ -23,7 +23,7 @@ export function Slideshow({ images }: { images: string[] }) {
 
   return (
     <div
-      className="mx-auto w-full max-w-sm arch-top border-2 border-gold/70 bg-field p-2 shadow-[0_16px_36px_-18px_rgba(0,0,0,0.5)] md:max-w-md"
+      className="relative h-svh w-full"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onTouchStart={(e) => (touchX.current = e.touches[0].clientX)}
@@ -34,7 +34,7 @@ export function Slideshow({ images }: { images: string[] }) {
         touchX.current = null;
       }}
     >
-      <div className="arch-top relative aspect-[4/5] overflow-hidden bg-field">
+      <div className="relative size-full overflow-hidden bg-emerald">
         <AnimatePresence initial={false}>
           <motion.div
             key={index}
@@ -48,14 +48,14 @@ export function Slideshow({ images }: { images: string[] }) {
               src={images[index]}
               alt=""
               fill
-              sizes="(min-width: 768px) 448px, 384px"
+              sizes="500px"
               className="object-cover"
               priority={index === 0}
             />
           </motion.div>
         </AnimatePresence>
         {images.length > 1 && (
-          <div className="absolute inset-x-0 bottom-3 flex justify-center gap-1.5">
+          <div className="absolute inset-x-0 bottom-16 z-10 flex justify-center gap-1.5">
             {images.map((src, i) => (
               <button
                 key={src + i}

@@ -61,17 +61,46 @@ body {
 }
 
 .invite-stage {
-  min-height: 100svh;
+  height: 100svh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+  overscroll-behavior-y: contain;
   background: #0b2f28;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(184, 137, 59, 0.65) transparent;
+}
+
+.invite-stage.invite-locked {
+  overflow: hidden;
 }
 
 .invite-frame {
   position: relative;
   width: min(100%, var(--invite-width));
-  min-height: 100svh;
   margin-inline: auto;
-  overflow-x: hidden;
+  overflow-x: clip;
   box-shadow: 0 0 40px rgba(0, 0, 0, 0.45);
+}
+
+.chapter {
+  position: relative;
+  min-height: 100svh;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  background: var(--color-emerald);
+}
+
+.chapter-verse {
+  background:
+    radial-gradient(ellipse at 50% 38%, rgba(230, 201, 126, 0.16), transparent 58%),
+    var(--color-emerald);
+  padding-block: 3rem;
+}
+
+.chapter-date {
+  background: #071c18;
 }
 
 .invite-fab-left,
@@ -95,23 +124,12 @@ body {
   background-size: 48px 48px;
 }
 
-.islamic-pattern-ivory {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48'%3E%3Cg fill='none' stroke='%23b8893b' stroke-width='0.8' opacity='0.16'%3E%3Crect x='14' y='14' width='20' height='20'/%3E%3Crect x='14' y='14' width='20' height='20' transform='rotate(45 24 24)'/%3E%3Ccircle cx='24' cy='24' r='4.5'/%3E%3Cpath d='M0 0L10 10M48 0L38 10M0 48L10 38M48 48L38 38M24 0V6M24 48V42M0 24H6M48 24H42'/%3E%3C/g%3E%3C/svg%3E");
-  background-size: 48px 48px;
-}
-
 /* Carved jaali screen for the doors. */
 .jaali {
   background-color: #14493d;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48'%3E%3Cg fill='none' stroke='%23e6c97e' stroke-width='1.4' opacity='0.75'%3E%3Crect x='14' y='14' width='20' height='20'/%3E%3Crect x='14' y='14' width='20' height='20' transform='rotate(45 24 24)'/%3E%3Ccircle cx='24' cy='24' r='4.5'/%3E%3Cpath d='M0 0L10 10M48 0L38 10M0 48L10 38M48 48L38 38M24 0V6M24 48V42M0 24H6M48 24H42'/%3E%3C/g%3E%3C/svg%3E");
   background-size: 36px 36px;
   background-position: center;
-}
-
-/* Mughal arch top for cards: a domed crown over a square-ish base. Horizontal radii must sum to
-   100% or the browser scales every radius down and the dome flattens. */
-.arch-top {
-  border-radius: 50% 50% 1.25rem 1.25rem / 8rem 8rem 1.25rem 1.25rem;
 }
 
 @keyframes lantern-swing {
@@ -209,6 +227,9 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .invite-stage {
+    scroll-behavior: auto;
+  }
   .animate-lantern,
   .animate-glow,
   .animate-twinkle,

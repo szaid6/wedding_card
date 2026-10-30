@@ -32,6 +32,15 @@ export function formatFullDate(date: string, locale = "en-US"): string {
   });
 }
 
+/** "December 2026" / "ديسمبر ٢٠٢٦" */
+export function formatMonthYear(date: string, locale = "en-US"): string {
+  return utcDate(date).toLocaleDateString(locale, {
+    month: "long",
+    year: "numeric",
+    timeZone: "UTC",
+  });
+}
+
 /** "Sunday" */
 export function formatWeekday(date: string, locale = "en-US"): string {
   return utcDate(date).toLocaleDateString(locale, { weekday: "long", timeZone: "UTC" });
