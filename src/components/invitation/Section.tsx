@@ -18,9 +18,9 @@ export function Section({
   children: ReactNode;
 }) {
   return (
-    <section id={id} className="relative px-4 py-5 md:px-8 md:py-7">
+    <section id={id} className="relative px-4 py-5">
       <motion.div
-        className="arch-top relative mx-auto max-w-2xl border-2 border-gold/70 bg-cream px-6 pb-12 pt-20 text-center shadow-[0_30px_60px_-30px_rgba(0,0,0,0.6)] md:px-12 md:pb-14 md:pt-24"
+        className="arch-top relative mx-auto max-w-2xl border-2 border-gold/70 bg-cream px-6 pb-12 pt-20 text-center shadow-[0_30px_60px_-30px_rgba(0,0,0,0.6)]"
         initial={{ opacity: 0, y: 28 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-80px" }}
@@ -34,7 +34,7 @@ export function Section({
             <header className="mb-8">
               {Icon && <Icon className="mx-auto mb-3 size-6 text-gold" strokeWidth={1.5} aria-hidden />}
               {title && (
-                <h2 className="mb-4 font-display text-2xl font-medium uppercase tracking-[0.14em] text-primary md:text-3xl rtl:text-4xl md:rtl:text-5xl">
+                <h2 className="mb-4 font-display text-2xl font-medium uppercase tracking-[0.14em] text-primary rtl:text-4xl">
                   {title}
                 </h2>
               )}

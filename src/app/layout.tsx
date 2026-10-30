@@ -23,8 +23,8 @@ const arefRuqaa = Aref_Ruqaa({
 const amiri = Amiri({ variable: "--font-amiri", subsets: ["arabic"], weight: ["400", "700"] });
 
 export const metadata: Metadata = {
-  title: "Wedding Invitations",
-  description: "Digital wedding invitations",
+  title: "Zaid & Zikra - Wedding Invitation",
+  description: "You're invited to celebrate the wedding of Zaid & Zikra.",
 };
 
 export const viewport: Viewport = {

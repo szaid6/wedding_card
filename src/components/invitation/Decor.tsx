@@ -224,7 +224,7 @@ const PETAL_COLORS = ["#a3243b", "#c0485a", "#d9707f", "#8c2f39", "#e9a3ad"];
 /** Rose petals showering down the page. Positions are fixed so server and client agree. */
 export function FallingPetals({ count = 14 }: { count?: number }) {
   return (
-    <div className="pointer-events-none fixed inset-0 z-40 overflow-hidden" aria-hidden>
+    <div className="pointer-events-none absolute inset-0 z-40 overflow-hidden" aria-hidden>
       {Array.from({ length: count }, (_, i) => {
         const size = 10 + ((i * 5) % 8);
         const style = {

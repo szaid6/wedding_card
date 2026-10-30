@@ -11,7 +11,7 @@ export function Timeline({ items }: { items: ScheduleItem[] }) {
       {groupByDate(items).map((group) => (
         <div key={group.date}>
           <p className="mb-5 flex justify-center">
-            <span className="rounded-full border border-gold/70 bg-emerald px-4 py-1.5 text-center font-display text-xs font-medium uppercase tracking-[0.2em] text-gold-light shadow-sm md:text-sm rtl:text-sm">
+            <span className="rounded-full border border-gold/70 bg-emerald px-4 py-1.5 text-center font-display text-xs font-medium uppercase tracking-[0.2em] text-gold-light shadow-sm rtl:text-sm">
               {formatLongDate(group.date, locale)}
             </span>
           </p>

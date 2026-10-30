@@ -102,7 +102,7 @@ export function SaveTheDate(props: Props) {
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
         aria-haspopup="menu"
-        className="inline-flex items-center gap-2 rounded-full border border-gold bg-emerald px-6 py-3 font-display text-xs uppercase tracking-[0.2em] text-gold-light shadow-[0_10px_24px_-10px_rgba(0,0,0,0.6)] transition hover:-translate-y-0.5 md:text-sm"
+        className="inline-flex items-center gap-2 rounded-full border border-gold bg-emerald px-6 py-3 font-display text-xs uppercase tracking-[0.2em] text-gold-light shadow-[0_10px_24px_-10px_rgba(0,0,0,0.6)] transition hover:-translate-y-0.5"
       >
         <CalendarDays className="size-4" />
         {t.saveTheDate}

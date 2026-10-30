@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useState } from "react";
 import { useI18n } from "@/lib/i18n";
 import type { Person } from "@/lib/invitation";
-import { ArchFrame, ARCH_PATH, CoupleIllustration, Crescent, FloralSwag, Lantern, Medallion, Skyline } from "./Decor";
+import { ArchFrame, Crescent, FloralSwag, Lantern, Medallion, Skyline } from "./Decor";
 import { Ornament } from "./Section";
 
 type Phase = "closed" | "opening" | "revealed";
@@ -62,14 +62,14 @@ export function IntroHero({
       <div className="islamic-pattern absolute inset-0" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_42%,rgba(230,201,126,0.22),transparent_62%)]" />
       <Skyline className="absolute inset-x-0 bottom-0 h-[22%] w-full opacity-80" />
-      <FloralSwag className="absolute inset-x-0 top-0 h-10 w-full md:h-14" />
-      <Lantern className="animate-lantern absolute left-[6%] top-0 w-10 md:w-14" chain={56} />
+      <FloralSwag className="absolute inset-x-0 top-0 h-10 w-full" />
+      <Lantern className="animate-lantern absolute left-[6%] top-0 w-10" chain={56} />
       <Lantern
-        className="animate-lantern absolute right-[6%] top-0 w-10 md:w-14"
+        className="animate-lantern absolute right-[6%] top-0 w-10"
         chain={30}
         style={{ animationDelay: "-2.5s" }}
       />
-      <Crescent className="absolute right-[22%] top-[9%] size-7 text-gold-light/80 md:size-9" />
+      <Crescent className="absolute right-[22%] top-[9%] size-7 text-gold-light/80" />
 
       <motion.div
         className="pointer-events-none relative z-10 flex w-full flex-col items-center px-8 pt-8 text-center"
@@ -80,7 +80,7 @@ export function IntroHero({
       >
         {bismillah && (
           <Reveal show={revealed} delay={0.1}>
-            <p lang="ar" dir="rtl" className="font-arabic text-2xl leading-loose text-gold-light md:text-3xl">
+            <p lang="ar" dir="rtl" className="font-arabic text-2xl leading-loose text-gold-light">
               {BISMILLAH}
             </p>
             {lang === "en" && (
@@ -89,38 +89,21 @@ export function IntroHero({
           </Reveal>
         )}
 
-        {/* The couple standing in a Mughal arch window. */}
-        <Reveal show={revealed} delay={0.3}>
-          <div className="relative mt-2 aspect-[200/260] w-[min(66vw,300px,32svh)]">
-            <svg viewBox="0 0 200 260" preserveAspectRatio="none" className="absolute inset-0 size-full" aria-hidden>
-              <defs>
-                <radialGradient id="hero-arch-fill" cx="0.5" cy="0.4" r="0.7">
-                  <stop offset="0" stopColor="#fffaf0" />
-                  <stop offset="1" stopColor="#f2e4c4" />
-                </radialGradient>
-              </defs>
-              <path d={`${ARCH_PATH} Z`} fill="url(#hero-arch-fill)" />
-            </svg>
-            <ArchFrame className="absolute inset-0 size-full" />
-            <CoupleIllustration className="absolute inset-x-[6%] bottom-0 h-[84%] w-[88%]" />
-          </div>
-        </Reveal>
-
         {headline && (
-          <Reveal show={revealed} delay={0.6}>
-            <p className="mt-5 whitespace-pre-line font-calligraphic text-xl italic text-cream/90 md:text-2xl">
+          <Reveal show={revealed} delay={0.35}>
+            <p className="mt-5 whitespace-pre-line font-calligraphic text-xl italic text-cream/90">
               {headline}
             </p>
           </Reveal>
         )}
-        <Reveal show={revealed} delay={0.8}>
-          <h1 className="mt-1 flex flex-wrap items-baseline justify-center gap-x-3 font-names text-5xl leading-tight text-gold-light md:text-7xl rtl:text-5xl rtl:leading-[1.5] md:rtl:text-7xl">
+        <Reveal show={revealed} delay={0.55}>
+          <h1 className="mt-1 flex flex-wrap items-baseline justify-center gap-x-3 font-names text-5xl leading-tight text-gold-light rtl:text-5xl rtl:leading-[1.5]">
             <span>{first.name}</span>
-            <span className="text-3xl text-cream/80 md:text-5xl rtl:text-4xl">{t.and}</span>
+            <span className="text-3xl text-cream/80 rtl:text-4xl">{t.and}</span>
             <span>{second.name}</span>
           </h1>
         </Reveal>
-        <Reveal show={revealed} delay={1}>
+        <Reveal show={revealed} delay={0.75}>
           <Ornament wide className="mt-3" />
         </Reveal>
       </motion.div>
@@ -155,7 +138,7 @@ export function IntroHero({
             transition={{ duration: 0.45 }}
           >
             <motion.span
-              className="block size-28 drop-shadow-[0_10px_20px_rgba(0,0,0,0.45)] md:size-32"
+              className="block size-28 drop-shadow-[0_10px_20px_rgba(0,0,0,0.45)]"
               animate={{ scale: [1, 1.05, 1] }}
               transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
             >

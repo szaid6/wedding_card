@@ -16,6 +16,9 @@ function lanDevOrigins(): string[] {
 
 const nextConfig: NextConfig = {
   allowedDevOrigins: lanDevOrigins(),
+  async redirects() {
+    return [{ source: "/invite/:slug", destination: "/", permanent: false }];
+  },
   cacheComponents: true,
   partialPrefetching: true,
   // Photos are served as-is; sharp isn't installed (see pnpm-workspace.yaml).

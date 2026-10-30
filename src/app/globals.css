@@ -29,6 +29,7 @@
 }
 
 :root {
+  --invite-width: 500px;
   --f-names: var(--font-pinyon), cursive;
   --f-calligraphic: var(--font-cormorant), serif;
   --f-display: var(--font-cinzel), serif;
@@ -50,15 +51,42 @@
   font-style: normal !important;
 }
 
-html {
-  background: #0f3d33;
-}
-
+html,
 body {
   margin: 0;
+  background: #0b2f28;
   font-family: var(--f-body);
   -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: transparent;
+}
+
+.invite-stage {
+  min-height: 100svh;
+  background: #0b2f28;
+}
+
+.invite-frame {
+  position: relative;
+  width: min(100%, var(--invite-width));
+  min-height: 100svh;
+  margin-inline: auto;
+  overflow-x: hidden;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.45);
+}
+
+.invite-fab-left,
+.invite-fab-right {
+  position: fixed;
+  bottom: 1rem;
+  z-index: 50;
+}
+
+.invite-fab-left {
+  left: max(1rem, calc(50% - (var(--invite-width) / 2) + 1rem));
+}
+
+.invite-fab-right {
+  right: max(1rem, calc(50% - (var(--invite-width) / 2) + 1rem));
 }
 
 /* Eight-point star lattice (khatam), in gold over emerald or ivory. */

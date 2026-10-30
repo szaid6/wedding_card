@@ -2,17 +2,17 @@
   "template": "noor",
   "defaultLanguage": "en",
   "seo": {
-    "title": "Zaid & Aisha - Wedding Invitation",
-    "description": "You're invited to celebrate the wedding of Zaid & Aisha."
+    "title": "Zaid Sayed & Zikra Shaikh - Wedding Invitation",
+    "description": "You're invited to celebrate the wedding of Zaid & Zikra."
   },
   "couple": {
     "groom": {
-      "name": "Zaid",
-      "details": "Son of Mr. & Mrs. Ahmed\nB.E. Computer Science\nSoftware Engineer"
+      "name": "Zaid Sayed",
+      "details": "Son of Mr. & Mrs. SAYED SHOAIB NAZIR"
     },
     "bride": {
-      "name": "Aisha",
-      "details": "Daughter of Mr. & Mrs. Rahman\nMBBS, M.D\nPediatrician"
+      "name": "Zikra Shaikh",
+      "details": "Daughter of Mr. & Mrs. AFZAL SHAIKH"
     }
   },
   "headline": "We're getting married",
@@ -21,23 +21,18 @@
     "translation": "And of His signs is that He created for you from yourselves mates that you may find tranquillity in them; and He placed between you affection and mercy.",
     "reference": "Surah Ar-Rum 30:21"
   },
-  "welcomeMessage": "With the blessings of our families, we are honored to welcome you to the wedding of Zaid & Aisha as they begin their journey together in faith and love.\nThank you for being part of this blessed occasion ❤",
+  "welcomeMessage": "With the blessings of our families, we are honored to welcome you to the wedding of Zaid & Zikra as they begin their journey together in faith and love.\nThank you for being part of this blessed occasion ❤",
   "event": {
-    "date": "2027-01-31",
+    "date": "2026-12-01",
     "time": "10:30",
     "timezone": "Asia/Kolkata",
-    "title": "Zaid & Aisha's Wedding",
+    "title": "Zaid & Zikra's Wedding",
     "durationHours": 5
   },
   "scratchCard": {
     "title": "Scratch to Reveal",
     "revealLabel": "You're Invited!"
   },
-  "slideshow": [
-    "/images/slide-1519741497674-611481863552.jpg",
-    "/images/slide-1465495976277-4387d4b0b4c6.jpg",
-    "/images/slide-1511285560929-80b456fea0bc.jpg"
-  ],
   "countdown": {
     "title": "Counting Down to Forever"
   },
@@ -45,27 +40,21 @@
     "title": "Program Timeline",
     "items": [
       {
-        "id": "mehendi",
-        "name": "Mehendi",
-        "dateTime": "2027-01-28T20:30",
-        "description": "At the bride's house"
-      },
-      {
         "id": "nikah",
         "name": "Nikah Ceremony",
-        "dateTime": "2027-01-31T10:30",
+        "dateTime": "2026-12-01T19:00",
         "description": "Guests are welcome from 10:00 AM ❤"
       },
       {
         "id": "reception",
         "name": "Reception",
-        "dateTime": "2027-02-02T19:30",
+        "dateTime": "2026-12-03T19:30",
         "description": "Dinner and celebrations"
       }
     ]
   },
   "guestGroups": {
-    "family": ["mehendi", "nikah", "reception"],
+    "family": ["nikah", "reception"],
     "reception": ["reception"]
   },
   "venue": {
@@ -75,7 +64,7 @@
   "gifts": "Your love, blessings, and presence are the greatest gifts we could ever ask for.",
   "closing": {
     "message": "We can't wait to celebrate with you!",
-    "signature": "Zaid & Aisha"
+    "signature": "Zaid & Zikra"
   },
   "music": {
     "enabled": true,
@@ -88,21 +77,17 @@
         "details": "نجل السيد والسيدة أحمد\nبكالوريوس علوم الحاسوب\nمهندس برمجيات"
       },
       "bride": {
-        "name": "عائشة",
+        "name": "ذكرى",
         "details": "كريمة السيد والسيدة رحمن\nبكالوريوس الطب والجراحة\nطبيبة أطفال"
       }
     },
     "headline": "نحتفل بزفافنا",
-    "welcomeMessage": "بمباركة عائلتينا، يسعدنا أن ندعوكم لحضور حفل زفاف زيد وعائشة وهما يبدآن رحلتهما معاً على المودة والرحمة.\nشكراً لكونكم جزءاً من هذه المناسبة المباركة ❤",
+    "welcomeMessage": "بمباركة عائلتينا، يسعدنا أن ندعوكم لحضور حفل زفاف زيد وذكرى وهما يبدآن رحلتهما معاً على المودة والرحمة.\nشكراً لكونكم جزءاً من هذه المناسبة المباركة ❤",
     "event": {
-      "title": "حفل زفاف زيد وعائشة"
+      "title": "حفل زفاف زيد وذكرى"
     },
     "program": {
       "items": [
-        {
-          "name": "ليلة الحناء",
-          "description": "في بيت العروس"
-        },
         {
           "name": "عقد القران",
           "description": "استقبال الضيوف من الساعة ١٠:٠٠ صباحاً ❤"
@@ -120,7 +105,7 @@
     "gifts": "حبكم ودعواتكم وحضوركم هي أجمل هدية يمكن أن نتمناها.",
     "closing": {
       "message": "بانتظاركم لنحتفل معاً!",
-      "signature": "زيد وعائشة"
+      "signature": "زيد وذكرى"
     },
     "verse": {
       "reference": "سورة الروم ٢١"

@@ -183,7 +183,7 @@ export function ScratchCard({
     <div className="flex flex-col items-center">
       <div
         ref={wrapRef}
-        className="relative aspect-[200/260] w-[200px] drop-shadow-[0_12px_20px_rgba(90,60,20,0.35)] md:w-[230px]"
+        className="relative aspect-[200/260] w-[200px] drop-shadow-[0_12px_20px_rgba(90,60,20,0.35)]"
       >
         <svg viewBox="0 0 1 1" preserveAspectRatio="none" className="absolute inset-0 size-full" aria-hidden>
           <defs>
