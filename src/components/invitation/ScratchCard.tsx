@@ -5,20 +5,24 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { formatFullDate, formatTime, formatWeekday } from "@/lib/dates";
 import { useI18n } from "@/lib/i18n";
 import type { TemplateTheme } from "@/lib/templates";
+import { Star8 } from "./Decor";
 
-// Heart outline in a 1x1 box: [startX, startY, ...cubic segments as 6-tuples]
-const START: [number, number] = [0.5, 1];
+// Pointed Mughal arch (mehrab) in a 1x1 box: [startX, startY, ...cubic segments as 6-tuples].
+// The straight sides are cubics with their control points on the line.
+const START: [number, number] = [0.02, 1];
 const CURVES: [number, number, number, number, number, number][] = [
-  [0.22, 0.8, 0, 0.58, 0, 0.32],
-  [0, 0.14, 0.13, 0, 0.29, 0],
-  [0.39, 0, 0.46, 0.05, 0.5, 0.14],
-  [0.54, 0.05, 0.61, 0, 0.71, 0],
-  [0.87, 0, 1, 0.14, 1, 0.32],
-  [1, 0.58, 0.78, 0.8, 0.5, 1],
+  [0.02, 1, 0.02, 0.431, 0.02, 0.431],
+  [0.02, 0.269, 0.19, 0.192, 0.34, 0.138],
+  [0.43, 0.108, 0.48, 0.069, 0.5, 0.015],
+  [0.52, 0.069, 0.57, 0.108, 0.66, 0.138],
+  [0.81, 0.192, 0.98, 0.269, 0.98, 0.431],
+  [0.98, 0.431, 0.98, 1, 0.98, 1],
 ];
-const SVG_HEART = `M${START.join(",")} ${CURVES.map((c) => `C${c.join(",")}`).join(" ")} Z`;
+const SVG_ARCH = `M${START.join(",")} ${CURVES.map((c) => `C${c.join(",")}`).join(" ")} Z`;
+/** The inner gold border, inset from the outline. */
+const INSET = { x: 0.07, y: 0.06, sx: 0.86, sy: 0.9 };
 
-function heartPath(w: number, h: number) {
+function archPath(w: number, h: number) {
   const p = new Path2D();
   p.moveTo(START[0] * w, START[1] * h);
   for (const [a, b, c, d, e, f] of CURVES) p.bezierCurveTo(a * w, b * h, c * w, d * h, e * w, f * h);
@@ -61,7 +65,7 @@ export function ScratchCard({
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.globalCompositeOperation = "source-over";
     ctx.save();
-    ctx.clip(heartPath(w, h));
+    ctx.clip(archPath(w, h));
 
     const [g0, g1, g2] = theme.scratch.gradient;
     const grad = ctx.createLinearGradient(0, 0, w, h);
@@ -77,6 +81,20 @@ export function ScratchCard({
     ctx.fillStyle = shine;
     ctx.fillRect(0, 0, w, h);
 
+    // Faint eight-point star lattice, like chased gold.
+    ctx.strokeStyle = "rgba(125, 93, 36, 0.32)";
+    ctx.lineWidth = 0.8;
+    for (let y = 14; y < h; y += 26) {
+      for (let x = (y / 26) % 2 ? 26 : 13; x < w; x += 26) {
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.strokeRect(-4.5, -4.5, 9, 9);
+        ctx.rotate(Math.PI / 4);
+        ctx.strokeRect(-4.5, -4.5, 9, 9);
+        ctx.restore();
+      }
+    }
+
     // Glitter
     const specks = Math.round((w * h) / 18);
     for (let i = 0; i < specks; i++) {
@@ -90,6 +108,15 @@ export function ScratchCard({
       ctx.arc(Math.random() * w, Math.random() * h, Math.random() * 1.4 + 0.4, 0, Math.PI * 2);
       ctx.fill();
     }
+
+    // Inner border following the arch.
+    ctx.save();
+    ctx.translate(w * INSET.x, h * INSET.y);
+    ctx.scale(INSET.sx, INSET.sy);
+    ctx.strokeStyle = "rgba(255, 246, 220, 0.85)";
+    ctx.lineWidth = 1.6;
+    ctx.stroke(archPath(w, h));
+    ctx.restore();
     ctx.restore();
   }, [theme]);
 
@@ -133,7 +160,7 @@ export function ScratchCard({
     if (!canvas || !ctx) return 0;
     const { data } = ctx.getImageData(0, 0, canvas.width, canvas.height);
     const dpr = window.devicePixelRatio || 1;
-    const inside = heartPath(canvas.width / dpr, canvas.height / dpr);
+    const inside = archPath(canvas.width / dpr, canvas.height / dpr);
     const probe = document.createElement("canvas").getContext("2d")!;
     let total = 0;
     let clear = 0;
@@ -156,7 +183,7 @@ export function ScratchCard({
     <div className="flex flex-col items-center">
       <div
         ref={wrapRef}
-        className="relative aspect-[1/0.95] w-[210px] drop-shadow-[0_10px_18px_rgba(60,70,50,0.28)] md:w-[240px]"
+        className="relative aspect-[200/260] w-[200px] drop-shadow-[0_12px_20px_rgba(90,60,20,0.35)] md:w-[230px]"
       >
         <svg viewBox="0 0 1 1" preserveAspectRatio="none" className="absolute inset-0 size-full" aria-hidden>
           <defs>
@@ -165,22 +192,24 @@ export function ScratchCard({
               <stop offset="1" stopColor={theme.colors.field} />
             </radialGradient>
           </defs>
-          <path d={SVG_HEART} fill="url(#reveal-bg)" />
+          <path d={SVG_ARCH} fill="url(#reveal-bg)" />
           <path
-            d={SVG_HEART}
+            d={SVG_ARCH}
             fill="none"
-            stroke={theme.colors.primary}
-            strokeOpacity="0.55"
+            stroke={theme.colors.gold}
             strokeWidth="1.5"
             vectorEffect="non-scaling-stroke"
-            transform="translate(0.04 0.04) scale(0.92)"
+            transform={`translate(${INSET.x} ${INSET.y}) scale(${INSET.sx} ${INSET.sy})`}
           />
         </svg>
-        <div className="absolute inset-0 flex flex-col items-center justify-center pb-6 text-center">
+        <div className="absolute inset-0 flex flex-col items-center justify-center px-6 pt-14 text-center">
+          <Star8 className="mb-2 size-4 text-gold" />
           <p className="mb-1 font-calligraphic text-xl italic text-primary">{label}</p>
-          <p className="font-display text-base font-bold text-foreground">{formatFullDate(date, locale)}</p>
+          <p className="font-display text-base font-semibold text-foreground">{formatFullDate(date, locale)}</p>
           <p className="font-calligraphic text-sm text-primary">{formatWeekday(date, locale)}</p>
-          <p className="mt-1 text-[10px] text-muted rtl:text-xs">{formatTime(time, locale)}</p>
+          <p className="mt-2 border-t border-gold/50 pt-2 font-display text-xs tracking-[0.2em] text-accent rtl:text-sm">
+            {formatTime(time, locale)}
+          </p>
         </div>
 
         <canvas
@@ -211,7 +240,7 @@ export function ScratchCard({
             last.current = null;
           }}
         />
-        {revealed && <Confetti />}
+        {revealed && <Confetti colors={theme.confetti} />}
       </div>
       {!revealed && (
         <p className="mt-4 text-xs uppercase tracking-[0.2em] text-muted/80 rtl:text-sm">{t.scratchHint}</p>
@@ -220,16 +249,14 @@ export function ScratchCard({
   );
 }
 
-const CONFETTI_COLORS = ["#b5c0a3", "#4a5c3d", "#e6d3a3", "#f3ede0", "#c9a96e"];
-
-function Confetti() {
+function Confetti({ colors }: { colors: string[] }) {
   const [pieces] = useState(() =>
     Array.from({ length: 36 }, (_, i) => ({
       id: i,
       x: (Math.random() - 0.5) * 320,
       y: -Math.random() * 220 - 40,
       r: Math.random() * 540 - 270,
-      color: CONFETTI_COLORS[i % CONFETTI_COLORS.length],
+      color: colors[i % colors.length],
       w: 5 + Math.random() * 5,
     })),
   );
@@ -238,8 +265,8 @@ function Confetti() {
       {pieces.map((p) => (
         <motion.span
           key={p.id}
-          className="absolute rounded-[1px]"
-          style={{ width: p.w, height: p.w * 0.45, backgroundColor: p.color }}
+          className="absolute rounded-full"
+          style={{ width: p.w, height: p.w * 0.6, backgroundColor: p.color }}
           initial={{ x: 0, y: 0, opacity: 1, rotate: 0 }}
           animate={{ x: p.x, y: [0, p.y, p.y + 260], opacity: [1, 1, 0], rotate: p.r }}
           transition={{ duration: 2.2, ease: "easeOut" }}

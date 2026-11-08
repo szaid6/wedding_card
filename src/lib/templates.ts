@@ -2,23 +2,7 @@ import type { CSSProperties } from "react";
 import type { TemplateId } from "./invitation";
 
 export type TemplateTheme = {
-  assets: {
-    /** Portrait intro video. Its first frame is the "tap to open" screen, its last frame the hero. */
-    introVideo: string;
-    introPoster: string;
-    introFinalFrame: string;
-    /** Top of the content area. */
-    welcomeBg: string;
-    /** Repeats vertically below the welcome background. */
-    generalBg: string;
-    /** Anchored to the bottom of the closing section. */
-    endBg: string;
-    music: string;
-  };
-  /** welcomeBg height / width, used to start the repeating background right below it. */
-  welcomeBgRatio: number;
-  /** Seconds after the intro starts playing before the hero text fades in. */
-  heroTextDelay: number;
+  assets: { music: string };
   /** Exposed as CSS variables and mapped to Tailwind colors in globals.css. */
   colors: {
     ink: string;
@@ -32,44 +16,51 @@ export type TemplateTheme = {
     field: string;
     fieldBorder: string;
     pageBg: string;
+    /** Ornaments, borders and highlights. */
+    gold: string;
+    goldLight: string;
+    /** The deep green behind the cards, and a lighter green for panels. */
+    emerald: string;
+    emeraldLight: string;
+    maroon: string;
   };
   scratch: { gradient: [string, string, string]; speck: [string, string, string]; sparkle: string };
+  confetti: string[];
 };
 
-const royalGrace: TemplateTheme = {
-  assets: {
-    introVideo: "/templates/royal-grace/intro.mp4",
-    introPoster: "/templates/royal-grace/intro-poster.jpg",
-    introFinalFrame: "/templates/royal-grace/intro-final.jpg",
-    welcomeBg: "/templates/royal-grace/welcome-bg.jpg",
-    generalBg: "/templates/royal-grace/general-bg.jpg",
-    endBg: "/templates/royal-grace/end-bg.jpg",
-    music: "/templates/royal-grace/music.mp3",
-  },
-  welcomeBgRatio: 1322 / 941,
-  heroTextDelay: 6,
+// Indian Muslim wedding: emerald, antique gold, ivory and maroon.
+const noor: TemplateTheme = {
+  assets: { music: "/templates/noor/music.mp3" },
   colors: {
-    ink: "#3b4432",
-    names: "#3e5634",
-    primary: "#4a5c3d",
-    foreground: "#27331f",
-    muted: "#5f6d55",
-    accent: "#8a7a4e",
-    divider: "#6b7d55",
-    cream: "#faf9f4",
-    field: "#f3eadb",
-    fieldBorder: "#d9cfbd",
-    pageBg: "#d6c5ac",
+    ink: "#23362e",
+    names: "#1c4d3f",
+    primary: "#1d5c4a",
+    foreground: "#22302a",
+    muted: "#5e6b62",
+    accent: "#8c2f39",
+    divider: "#c9a24d",
+    cream: "#fdf8ec",
+    field: "#f6eddb",
+    fieldBorder: "#e3d2ad",
+    pageBg: "#0f3d33",
+    gold: "#b8893b",
+    goldLight: "#e6c97e",
+    emerald: "#0f3d33",
+    emeraldLight: "#1d5c4a",
+    maroon: "#8c2f39",
   },
   scratch: {
-    gradient: ["#eee6d2", "#9aa584", "#4a5540"],
-    speck: ["238, 230, 210", "154, 165, 132", "74, 85, 64"],
-    sparkle: "247, 242, 230",
+    gradient: ["#f6e7bd", "#c9a24d", "#7d5d24"],
+    speck: ["255, 244, 214", "214, 178, 96", "125, 93, 36"],
+    sparkle: "255, 250, 235",
   },
+  confetti: ["#8c2f39", "#c0485a", "#e6c97e", "#f3b6be", "#b8893b"],
 };
 
+// Sea styles itself; it shares Noor's music.
 const TEMPLATES: Record<TemplateId, TemplateTheme> = {
-  "royal-grace": royalGrace,
+  noor,
+  sea: noor,
 };
 
 export function getTheme(id: TemplateId): TemplateTheme {
@@ -90,5 +81,10 @@ export function themeStyle(theme: TemplateTheme): CSSProperties {
     "--t-field": c.field,
     "--t-field-border": c.fieldBorder,
     "--t-page-bg": c.pageBg,
+    "--t-gold": c.gold,
+    "--t-gold-light": c.goldLight,
+    "--t-emerald": c.emerald,
+    "--t-emerald-light": c.emeraldLight,
+    "--t-maroon": c.maroon,
   } as CSSProperties;
 }

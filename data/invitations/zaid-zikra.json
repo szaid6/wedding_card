@@ -1,0 +1,66 @@
+{
+  "template": "sea",
+  "seo": {
+    "title": "Sayed Zaid & Zikra Shaikh - Nikah",
+    "description": "The Sayed family invites you to the Nikah of Sayed Zaid and Zikra Shaikh on Tuesday, 1 December 2026, at Kokni Hall, Mumbai."
+  },
+  "hosts": "The Sayed Family",
+  "headline": "By the grace of Almighty Allah",
+  "couple": {
+    "groom": { "name": "Sayed Zaid", "shortName": "Zaid", "details": "Son of Mrs. & Mr. Sayed Shoaib Nazir" },
+    "bride": { "name": "Zikra Shaikh", "shortName": "Zikra", "details": "Daughter of Mrs. & Mr. Afzal Shaikh" }
+  },
+  "verse": {
+    "arabic": "وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً",
+    "translation": "And He placed between you affection and mercy.",
+    "reference": "Surah Ar-Rum 30:21"
+  },
+  "event": {
+    "date": "2026-12-01",
+    "time": "19:00",
+    "timezone": "Asia/Kolkata",
+    "title": "Nikah of Sayed Zaid & Zikra Shaikh",
+    "durationHours": 4,
+    "hijri": "20 Jumada al-Thani 1448"
+  },
+  "program": {
+    "items": [
+      { "id": "nikah", "name": "Nikah", "dateTime": "2026-12-01T19:00", "description": "7:00 PM sharp" },
+      { "id": "dinner", "name": "Dinner", "dateTime": "2026-12-01T20:00", "description": "8:00 PM to 11:00 PM" }
+    ]
+  },
+  "venue": {
+    "name": "Kokni Hall",
+    "address": "Mumbai Central, Mumbai, Maharashtra",
+    "mapQuery": "Kokni Community Hall, Jehangir Boman Behram Road, Mumbai Central, Mumbai"
+  },
+  "duas": [
+    {
+      "arabic": "بَارَكَ اللهُ لَكَ وَبَارَكَ عَلَيْكَ وَجَمَعَ بَيْنَكُمَا فِي خَيْرٍ",
+      "translation": "May Allah bless you, shower His blessings upon you, and join you together in goodness."
+    },
+    { "arabic": "نَسْأَلُكُمُ الدُّعَاءَ", "translation": "Please keep the couple in your duas." }
+  ],
+  "gifts": "Your presence, duas and blessings are the greatest gifts we could ask for.",
+  "closing": { "message": "We look forward to celebrating with you.", "signature": "Zaid & Zikra" },
+  "ar": {
+    "seo": { "title": "سيد زيد وذكرى شيخ - عقد القران" },
+    "hosts": "عائلة سيد",
+    "headline": "بفضل الله تعالى",
+    "couple": {
+      "groom": { "name": "سيد زيد", "shortName": "زيد", "details": "ابن السيدة والسيد سيد شعيب نذير" },
+      "bride": { "name": "ذكرى شيخ", "shortName": "ذكرى", "details": "ابنة السيدة والسيد أفضل شيخ" }
+    },
+    "verse": { "reference": "سورة الروم ٣٠:٢١" },
+    "event": { "title": "عقد قران سيد زيد وذكرى شيخ", "hijri": "٢٠ جمادى الآخرة ١٤٤٨" },
+    "program": {
+      "items": [
+        { "name": "عقد القران", "description": "السابعة مساءً تماماً" },
+        { "name": "العشاء", "description": "من الثامنة حتى الحادية عشرة مساءً" }
+      ]
+    },
+    "venue": { "name": "قاعة كوكني", "address": "مومباي سنترال، مومباي، ماهاراشترا" },
+    "gifts": "حضوركم ودعاؤكم وبركاتكم أعظم هدية نتمناها.",
+    "closing": { "message": "نتطلع للاحتفال معكم.", "signature": "زيد وذكرى" }
+  }
+}

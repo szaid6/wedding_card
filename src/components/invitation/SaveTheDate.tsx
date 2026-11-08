@@ -24,7 +24,7 @@ function stamp(ms: number) {
     .replace(/\.\d{3}/, "");
 }
 
-function links({ title, date, time, timezone, durationHours, location = "", details = "" }: Props) {
+export function calendarLinks({ title, date, time, timezone, durationHours, location = "", details = "" }: Props) {
   const start = zonedToEpoch(date, time, timezone);
   const end = start + durationHours * 3_600_000;
   const google = new URL("https://calendar.google.com/calendar/render");
@@ -84,7 +84,7 @@ export function SaveTheDate(props: Props) {
   }, [open]);
 
   function downloadIcs() {
-    const blob = new Blob([links(props).ics], { type: "text/calendar;charset=utf-8" });
+    const blob = new Blob([calendarLinks(props).ics], { type: "text/calendar;charset=utf-8" });
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
     a.download = `${props.title.replace(/[^\w]+/g, "-").toLowerCase()}.ics`;
@@ -102,7 +102,7 @@ export function SaveTheDate(props: Props) {
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
         aria-haspopup="menu"
-        className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-cream shadow-[0_6px_18px_rgba(60,70,50,0.3)] transition hover:-translate-y-0.5 hover:shadow-[0_10px_24px_rgba(60,70,50,0.35)] md:text-sm"
+        className="inline-flex items-center gap-2 rounded-full border border-gold bg-emerald px-6 py-3 font-display text-xs uppercase tracking-[0.2em] text-gold-light shadow-[0_10px_24px_-10px_rgba(0,0,0,0.6)] transition hover:-translate-y-0.5 md:text-sm"
       >
         <CalendarDays className="size-4" />
         {t.saveTheDate}
@@ -115,12 +115,12 @@ export function SaveTheDate(props: Props) {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -6, scale: 0.97 }}
             transition={{ duration: 0.18 }}
-            className="absolute left-1/2 z-30 mt-2 w-56 -translate-x-1/2 overflow-hidden rounded-xl border border-field-border bg-cream py-1 shadow-xl"
+            className="absolute left-1/2 z-30 mt-2 w-56 -translate-x-1/2 overflow-hidden rounded-2xl border border-field-border bg-cream py-1 shadow-xl"
           >
-            <a role="menuitem" className={item} href={links(props).google} target="_blank" rel="noreferrer">
+            <a role="menuitem" className={item} href={calendarLinks(props).google} target="_blank" rel="noreferrer">
               {t.googleCalendar}
             </a>
-            <a role="menuitem" className={item} href={links(props).outlook} target="_blank" rel="noreferrer">
+            <a role="menuitem" className={item} href={calendarLinks(props).outlook} target="_blank" rel="noreferrer">
               {t.outlook}
             </a>
             <button role="menuitem" type="button" className={item} onClick={downloadIcs}>

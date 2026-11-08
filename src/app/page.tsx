@@ -9,26 +9,26 @@ export default function Home() {
     .filter((inv) => inv !== null);
 
   return (
-    <main className="min-h-svh bg-[#f3ede0] px-6 py-16 text-[#27331f]">
+    <main className="min-h-svh islamic-pattern bg-[#0f3d33] px-6 py-16 text-[#22302a]">
       <div className="mx-auto max-w-2xl">
-        <h1 className="text-center font-script text-5xl text-[#4a5c3d]">Invitations</h1>
-        <p className="mt-3 text-center text-sm text-[#5f6d55]">
-          Each JSON file in <code className="rounded bg-white/60 px-1">data/invitations/</code> becomes a page.
+        <h1 className="text-center font-display text-4xl tracking-[0.12em] text-[#e6c97e]">Invitations</h1>
+        <p className="mt-3 text-center text-sm text-[#fdf8ec]/70">
+          Each JSON file in <code className="rounded bg-white/10 px-1">data/invitations/</code> becomes a page.
         </p>
         <ul className="mt-10 space-y-3">
           {invitations.map((inv) => (
             <li key={inv.slug}>
               <Link
                 href={`/invite/${inv.slug}`}
-                className="flex items-center justify-between rounded-xl border border-[#d9cfbd] bg-white/60 px-5 py-4 transition hover:border-[#4a5c3d]/50 hover:bg-white"
+                className="flex items-center justify-between rounded-xl border border-[#c9a24d]/70 bg-[#fdf8ec] px-5 py-4 shadow-sm transition hover:border-[#c9a24d] hover:bg-white"
               >
                 <span>
-                  <span className="block font-display text-lg font-semibold">{coupleNames(inv)}</span>
-                  <span className="text-sm text-[#5f6d55]">
+                  <span className="block font-display text-lg font-medium">{coupleNames(inv)}</span>
+                  <span className="text-sm text-[#5e6b62]">
                     {formatFullDate(inv.event.date)} · {inv.template}
                   </span>
                 </span>
-                <span className="font-mono text-xs text-[#5f6d55]">/invite/{inv.slug}</span>
+                <span className="font-mono text-xs text-[#5e6b62]">/invite/{inv.slug}</span>
               </Link>
             </li>
           ))}

@@ -41,12 +41,27 @@ function validate(d: InvitationData): string[] {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(d.event?.date ?? "")) p.push(`"event.date" must look like 2027-01-31`);
   if (!/^\d{2}:\d{2}$/.test(d.event?.time ?? "")) p.push(`"event.time" must look like 18:30`);
   if (!d.event?.timezone) p.push(`"event.timezone" is required, e.g. "Asia/Kolkata"`);
-  for (const key of ["program", "preEvents"] as const) {
-    d[key]?.items?.forEach((item, i) => {
-      if (!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/.test(item.dateTime ?? "")) {
-        p.push(`"${key}.items[${i}].dateTime" must look like 2027-01-31T18:30`);
-      }
+  const items = d.program?.items ?? [];
+  items.forEach((item, i) => {
+    if (!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/.test(item.dateTime ?? "")) {
+      p.push(`"program.items[${i}].dateTime" must look like 2027-01-31T18:30`);
+    }
+  });
+  if (d.guestGroups) {
+    const ids = new Set<string>();
+    items.forEach((item, i) => {
+      if (!item.id) p.push(`"program.items[${i}].id" is required when "guestGroups" is used`);
+      else if (ids.has(item.id)) p.push(`"program.items[${i}].id" "${item.id}" is used twice`);
+      else ids.add(item.id);
     });
+    for (const [group, events] of Object.entries(d.guestGroups)) {
+      if (!/^[a-z0-9-]+$/.test(group))
+        p.push(`guest group "${group}" may only use lowercase letters, digits and dashes`);
+      if (!Array.isArray(events) || !events.length) p.push(`"guestGroups.${group}" must list at least one event id`);
+      else
+        for (const id of events)
+          if (!ids.has(id)) p.push(`"guestGroups.${group}" lists "${id}", which no program item has`);
+    }
   }
   return p;
 }

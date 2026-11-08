@@ -1,143 +1,185 @@
 "use client";
 
-import { ChevronDown, Heart } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useI18n } from "@/lib/i18n";
 import type { Person } from "@/lib/invitation";
-import type { TemplateTheme } from "@/lib/templates";
+import { ArchFrame, ARCH_PATH, CoupleIllustration, Crescent, FloralSwag, Lantern, Medallion, Skyline } from "./Decor";
 import { Ornament } from "./Section";
 
-type Phase = "idle" | "playing" | "revealed";
+type Phase = "closed" | "opening" | "revealed";
 
 const ease = [0.16, 1, 0.3, 1] as const;
+const DOOR_SECONDS = 2;
+/** The names start appearing while the doors are still swinging. */
+const REVEAL_AFTER_MS = 1200;
+
+export const BISMILLAH = "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ";
 
 export function IntroHero({
-  theme,
   headline,
   first,
   second,
+  bismillah,
   onOpen,
   onReveal,
 }: {
-  theme: TemplateTheme;
   headline?: string;
   first: Person;
   second: Person;
+  bismillah: boolean;
   /** Fired on the user's tap, so audio can start inside the gesture. */
   onOpen: () => void;
   /** Fired when the hero text appears and the page may scroll. */
   onReveal: () => void;
 }) {
-  const { t } = useI18n();
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [phase, setPhase] = useState<Phase>("idle");
-  const [videoFailed, setVideoFailed] = useState(false);
+  const { t, lang } = useI18n();
+  const [phase, setPhase] = useState<Phase>("closed");
   const revealed = phase === "revealed";
 
   useEffect(() => {
-    if (phase !== "playing") return;
-    const id = window.setTimeout(() => setPhase("revealed"), theme.heroTextDelay * 1000);
+    if (phase !== "opening") return;
+    const id = window.setTimeout(() => setPhase("revealed"), REVEAL_AFTER_MS);
     return () => window.clearTimeout(id);
-  }, [phase, theme.heroTextDelay]);
+  }, [phase]);
 
   useEffect(() => {
     if (revealed) onReveal();
   }, [revealed, onReveal]);
 
-  async function open() {
-    if (phase !== "idle") return;
+  function open() {
+    if (phase !== "closed") return;
     onOpen();
-    const video = videoRef.current;
-    if (!video || videoFailed) {
-      setPhase("revealed");
-      return;
-    }
-    try {
-      video.muted = true;
-      await video.play();
-      setPhase("playing");
-    } catch {
-      // Autoplay blocked or decode error: jump straight to the final frame.
-      setVideoFailed(true);
-      setPhase("revealed");
-    }
+    setPhase("opening");
   }
 
-  return (
-    <section className="relative flex h-svh min-h-[560px] w-full items-center justify-center overflow-hidden bg-[#0f0f0f]">
-      <video
-        ref={videoRef}
-        src={theme.assets.introVideo}
-        poster={theme.assets.introPoster}
-        className="absolute inset-0 size-full object-cover"
-        playsInline
-        muted
-        preload="auto"
-        disablePictureInPicture
-        controls={false}
-        onContextMenu={(e) => e.preventDefault()}
-        onError={() => setVideoFailed(true)}
-        onEnded={() => setPhase("revealed")}
-      />
-      {videoFailed && phase !== "idle" && (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
-          src={theme.assets.introFinalFrame}
-          alt=""
-          aria-hidden
-          className="pointer-events-none absolute inset-0 size-full object-cover"
-        />
-      )}
+  const initials: [string, string] = [[...first.name][0] ?? "", [...second.name][0] ?? ""];
 
-      {phase === "idle" && (
-        <button
-          type="button"
-          onClick={open}
-          className="absolute inset-0 z-20 cursor-pointer"
-          aria-label={t.openInvitation}
-        />
-      )}
+  return (
+    <section className="relative flex h-svh min-h-[620px] w-full flex-col items-center justify-center overflow-hidden bg-emerald [perspective:1600px]">
+      {/* Night sky: pattern, glow, crescent, lanterns and a garland across the top. */}
+      <div className="islamic-pattern absolute inset-0" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_42%,rgba(230,201,126,0.22),transparent_62%)]" />
+      <Skyline className="absolute inset-x-0 bottom-0 h-[22%] w-full opacity-80" />
+      <FloralSwag className="absolute inset-x-0 top-0 h-10 w-full md:h-14" />
+      <Lantern className="animate-lantern absolute left-[6%] top-0 w-10 md:w-14" chain={56} />
+      <Lantern
+        className="animate-lantern absolute right-[6%] top-0 w-10 md:w-14"
+        chain={30}
+        style={{ animationDelay: "-2.5s" }}
+      />
+      <Crescent className="absolute right-[22%] top-[9%] size-7 text-gold-light/80 md:size-9" />
 
       <motion.div
-        className="pointer-events-none relative -top-10 z-10 flex w-full flex-col items-center px-6 text-center text-ink md:-top-16"
+        className="pointer-events-none relative z-10 flex w-full flex-col items-center px-8 pt-8 text-center"
         initial={false}
         animate={{ opacity: revealed ? 1 : 0, y: revealed ? 0 : 30 }}
-        transition={{ duration: 1.6, ease }}
+        transition={{ duration: 1.4, ease }}
         aria-hidden={!revealed}
       >
-        <Reveal show={revealed} delay={0.2} className="mb-3">
-          <Heart className="mx-auto size-[26px] fill-current" strokeWidth={0} />
-        </Reveal>
-        {headline && (
-          <Reveal show={revealed} delay={0.4}>
-            <p className="text-glow mb-3 whitespace-pre-line font-calligraphic text-2xl md:text-4xl">{headline}</p>
+        {bismillah && (
+          <Reveal show={revealed} delay={0.1}>
+            <p lang="ar" dir="rtl" className="font-arabic text-2xl leading-loose text-gold-light md:text-3xl">
+              {BISMILLAH}
+            </p>
+            {lang === "en" && (
+              <p className="-mt-1 mb-2 font-calligraphic text-sm italic text-cream/70">{t.bismillahMeaning}</p>
+            )}
           </Reveal>
         )}
-        <Ornament className="my-3" />
-        <Reveal show={revealed} delay={0.6}>
-          <Name person={first} />
+
+        {/* The couple standing in a Mughal arch window. */}
+        <Reveal show={revealed} delay={0.3}>
+          <div className="relative mt-2 aspect-[200/260] w-[min(66vw,300px,32svh)]">
+            <svg viewBox="0 0 200 260" preserveAspectRatio="none" className="absolute inset-0 size-full" aria-hidden>
+              <defs>
+                <radialGradient id="hero-arch-fill" cx="0.5" cy="0.4" r="0.7">
+                  <stop offset="0" stopColor="#fffaf0" />
+                  <stop offset="1" stopColor="#f2e4c4" />
+                </radialGradient>
+              </defs>
+              <path d={`${ARCH_PATH} Z`} fill="url(#hero-arch-fill)" />
+            </svg>
+            <ArchFrame className="absolute inset-0 size-full" />
+            <CoupleIllustration className="absolute inset-x-[6%] bottom-0 h-[84%] w-[88%]" />
+          </div>
         </Reveal>
-        <Reveal show={revealed} delay={0.85}>
-          <p className="text-glow my-2 font-names text-3xl text-names/85 md:text-4xl rtl:text-5xl">{t.and}</p>
+
+        {headline && (
+          <Reveal show={revealed} delay={0.6}>
+            <p className="mt-5 whitespace-pre-line font-calligraphic text-xl italic text-cream/90 md:text-2xl">
+              {headline}
+            </p>
+          </Reveal>
+        )}
+        <Reveal show={revealed} delay={0.8}>
+          <h1 className="mt-1 flex flex-wrap items-baseline justify-center gap-x-3 font-names text-5xl leading-tight text-gold-light md:text-7xl rtl:text-5xl rtl:leading-[1.5] md:rtl:text-7xl">
+            <span>{first.name}</span>
+            <span className="text-3xl text-cream/80 md:text-5xl rtl:text-4xl">{t.and}</span>
+            <span>{second.name}</span>
+          </h1>
         </Reveal>
-        <Reveal show={revealed} delay={1.05}>
-          <Name person={second} />
+        <Reveal show={revealed} delay={1}>
+          <Ornament wide className="mt-3" />
         </Reveal>
       </motion.div>
+
+      {/* Carved palace doors until the medallion is tapped. */}
+      {(["left", "right"] as const).map((side) => (
+        <motion.div
+          key={side}
+          className={`absolute inset-y-0 z-30 w-1/2 ${side === "left" ? "left-0" : "right-0"}`}
+          style={{ transformOrigin: side === "left" ? "left center" : "right center" }}
+          initial={false}
+          animate={
+            phase === "closed"
+              ? { rotateY: 0, opacity: 1 }
+              : { rotateY: side === "left" ? -105 : 105, opacity: [1, 1, 0] }
+          }
+          transition={{ duration: DOOR_SECONDS, ease: [0.55, 0, 0.3, 1] }}
+          aria-hidden
+        >
+          <Door side={side} />
+        </motion.div>
+      ))}
+
+      <AnimatePresence>
+        {phase === "closed" && (
+          <motion.button
+            type="button"
+            onClick={open}
+            aria-label={t.openInvitation}
+            className="absolute inset-0 z-40 flex cursor-pointer flex-col items-center justify-center gap-4"
+            exit={{ opacity: 0, scale: 0.8 }}
+            transition={{ duration: 0.45 }}
+          >
+            <motion.span
+              className="block size-28 drop-shadow-[0_10px_20px_rgba(0,0,0,0.45)] md:size-32"
+              animate={{ scale: [1, 1.05, 1] }}
+              transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <Medallion initials={initials} className="size-full" />
+            </motion.span>
+            <span className="rounded-full border border-gold/70 bg-emerald/90 px-5 py-2 font-display text-[11px] uppercase tracking-[0.3em] text-gold-light shadow-lg rtl:text-sm">
+              {t.tapToOpen}
+            </span>
+          </motion.button>
+        )}
+      </AnimatePresence>
 
       <AnimatePresence>
         {revealed && (
           <motion.div
-            className="pointer-events-none absolute inset-x-0 bottom-16 z-10 flex flex-col items-center gap-2 md:bottom-12"
+            className="pointer-events-none absolute inset-x-0 bottom-6 z-10 flex flex-col items-center gap-2"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ delay: 1.4, duration: 0.8 }}
+            transition={{ delay: 1.6, duration: 0.8 }}
           >
-            <div className="animate-scroll-hint flex flex-col items-center gap-1">
-              <span className="text-glow-soft text-xs uppercase tracking-widest text-ink/70">{t.scroll}</span>
-              <ChevronDown className="size-5 text-ink" />
+            <div className="animate-scroll-hint flex flex-col items-center gap-1 text-gold-light">
+              <span className="text-[10px] uppercase tracking-widest rtl:text-xs">{t.scroll}</span>
+              <ChevronDown className="size-4" />
             </div>
           </motion.div>
         )}
@@ -146,16 +188,21 @@ export function IntroHero({
   );
 }
 
-function Name({ person }: { person: Person }) {
+/** One door leaf: jaali screen inside a gold-framed arch panel, with a ring knocker by the seam. */
+function Door({ side }: { side: "left" | "right" }) {
   return (
-    <h1 className="text-glow font-names text-6xl leading-none text-names md:text-8xl lg:text-9xl rtl:text-7xl rtl:leading-[1.3] md:rtl:text-9xl">
-      {person.name}
-      {person.details && (
-        <span className="mb-3 mt-1 block whitespace-pre-line font-display text-sm italic leading-snug text-names/85 md:text-base rtl:mt-0 rtl:text-base rtl:leading-relaxed md:rtl:text-lg">
-          {person.details}
-        </span>
-      )}
-    </h1>
+    <div className="relative size-full bg-[#0b2f28] shadow-[inset_0_0_40px_rgba(0,0,0,0.5)]">
+      <div className="absolute inset-[12px] overflow-hidden border border-gold/60">
+        <div className="jaali absolute inset-0" />
+        <ArchFrame className="absolute inset-x-[10%] top-[6%] h-[70%] w-[80%]" color="#e6c97e" />
+        <div className="absolute inset-x-0 bottom-0 h-[18%] border-t border-gold/60 bg-[#0b2f28]/85" />
+      </div>
+      <span
+        className={`absolute top-1/2 size-8 -translate-y-1/2 rounded-full border-[3px] border-gold-light/90 shadow-md ${
+          side === "left" ? "right-5" : "left-5"
+        }`}
+      />
+    </div>
   );
 }
 

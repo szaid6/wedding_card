@@ -1,5 +1,5 @@
 {
-  "template": "royal-grace",
+  "template": "noor",
   "defaultLanguage": "en",
   "seo": {
     "title": "Zaid & Aisha - Wedding Invitation",
@@ -16,6 +16,11 @@
     }
   },
   "headline": "We're getting married",
+  "verse": {
+    "arabic": "وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً",
+    "translation": "And of His signs is that He created for you from yourselves mates that you may find tranquillity in them; and He placed between you affection and mercy.",
+    "reference": "Surah Ar-Rum 30:21"
+  },
   "welcomeMessage": "With the blessings of our families, we are honored to welcome you to the wedding of Zaid & Aisha as they begin their journey together in faith and love.\nThank you for being part of this blessed occasion ❤",
   "event": {
     "date": "2027-01-31",
@@ -33,46 +38,49 @@
     "/images/slide-1465495976277-4387d4b0b4c6.jpg",
     "/images/slide-1511285560929-80b456fea0bc.jpg"
   ],
-  "countdown": { "title": "Counting Down to Forever" },
+  "countdown": {
+    "title": "Counting Down to Forever"
+  },
   "program": {
     "title": "Program Timeline",
     "items": [
-      { "name": "Guest Arrival", "dateTime": "2027-01-31T10:00", "description": "We welcome you ❤" },
-      { "name": "Nikah Ceremony", "dateTime": "2027-01-31T10:30", "description": "Your presence means a lot!" },
-      { "name": "Reception", "dateTime": "2027-02-02T19:30" }
+      {
+        "id": "mehendi",
+        "name": "Mehendi",
+        "dateTime": "2027-01-28T20:30",
+        "description": "At the bride's house"
+      },
+      {
+        "id": "nikah",
+        "name": "Nikah Ceremony",
+        "dateTime": "2027-01-31T10:30",
+        "description": "Guests are welcome from 10:00 AM ❤"
+      },
+      {
+        "id": "reception",
+        "name": "Reception",
+        "dateTime": "2027-02-02T19:30",
+        "description": "Dinner and celebrations"
+      }
     ]
+  },
+  "guestGroups": {
+    "family": ["mehendi", "nikah", "reception"],
+    "reception": ["reception"]
   },
   "venue": {
     "name": "Taj Lands End",
     "address": "Bandstand, Bandra West, Mumbai"
   },
-  "dressCode": {
-    "women": "Elegant formal attire in pastel or jewel tones",
-    "men": "Suit or traditional formal wear"
-  },
-  "preEvents": {
-    "title": "Pre-Wedding Events",
-    "items": [
-      { "name": "Mehendi", "dateTime": "2027-01-28T20:30", "description": "At the bride's house" },
-      { "name": "Haldi", "dateTime": "2027-01-29T20:00", "description": "At the groom's house" }
-    ]
-  },
-  "transportation": "A shuttle will run from Bandra station to the venue. Pickup at Bandra station at 9:30 AM.",
-  "accommodation": "Special rates for wedding guests at Taj Lands End. Use code WEDDING2027 when booking.",
   "gifts": "Your love, blessings, and presence are the greatest gifts we could ever ask for.",
-  "rsvp": {
-    "title": "RSVP",
-    "whatsappNumber": ""
-  },
   "closing": {
     "message": "We can't wait to celebrate with you!",
     "signature": "Zaid & Aisha"
   },
   "music": {
     "enabled": true,
-    "src": "/templates/royal-grace/music.mp3"
+    "src": "/templates/noor/music.mp3"
   },
-
   "ar": {
     "couple": {
       "groom": {
@@ -86,34 +94,36 @@
     },
     "headline": "نحتفل بزفافنا",
     "welcomeMessage": "بمباركة عائلتينا، يسعدنا أن ندعوكم لحضور حفل زفاف زيد وعائشة وهما يبدآن رحلتهما معاً على المودة والرحمة.\nشكراً لكونكم جزءاً من هذه المناسبة المباركة ❤",
-    "event": { "title": "حفل زفاف زيد وعائشة" },
+    "event": {
+      "title": "حفل زفاف زيد وعائشة"
+    },
     "program": {
       "items": [
-        { "name": "استقبال الضيوف", "description": "أهلاً وسهلاً بكم ❤" },
-        { "name": "عقد القران", "description": "حضوركم يسعدنا!" },
-        { "name": "حفل الاستقبال" }
+        {
+          "name": "ليلة الحناء",
+          "description": "في بيت العروس"
+        },
+        {
+          "name": "عقد القران",
+          "description": "استقبال الضيوف من الساعة ١٠:٠٠ صباحاً ❤"
+        },
+        {
+          "name": "حفل الاستقبال",
+          "description": "عشاء واحتفال"
+        }
       ]
     },
     "venue": {
       "name": "تاج لاندز إند",
       "address": "باندستاند، باندرا الغربية، مومباي"
     },
-    "dressCode": {
-      "women": "ملابس رسمية أنيقة بألوان الباستيل أو ألوان الأحجار الكريمة",
-      "men": "بدلة رسمية أو زي تقليدي"
-    },
-    "preEvents": {
-      "items": [
-        { "name": "ليلة الحناء", "description": "في بيت العروس" },
-        { "name": "الهلدي", "description": "في بيت العريس" }
-      ]
-    },
-    "transportation": "تتوفر حافلة من محطة باندرا إلى مكان الحفل. الانطلاق من محطة باندرا الساعة ٩:٣٠ صباحاً.",
-    "accommodation": "أسعار خاصة لضيوف الحفل في فندق تاج لاندز إند. استخدموا الرمز WEDDING2027 عند الحجز.",
     "gifts": "حبكم ودعواتكم وحضوركم هي أجمل هدية يمكن أن نتمناها.",
     "closing": {
       "message": "بانتظاركم لنحتفل معاً!",
       "signature": "زيد وعائشة"
+    },
+    "verse": {
+      "reference": "سورة الروم ٢١"
     }
   }
 }

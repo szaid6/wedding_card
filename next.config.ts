@@ -22,7 +22,8 @@ const nextConfig: NextConfig = {
   images: { unoptimized: true },
   turbopack: {
     rules: {
-      "*.css": {
+      // Only the global sheet uses Tailwind; CSS modules keep their own pipeline.
+      "globals.css": {
         loaders: ["@tailwindcss/turbopack"],
         as: "*.css",
       },

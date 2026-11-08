@@ -11,13 +11,13 @@ export function Venue({ venue }: { venue: NonNullable<InvitationData["venue"]> }
 
   return (
     <div>
-      <p className="mb-2 font-display text-xl font-semibold text-foreground">{venue.name}</p>
+      <p className="mb-2 font-calligraphic text-3xl font-medium text-primary">{venue.name}</p>
       {venue.address && <p className="whitespace-pre-line text-muted">{venue.address}</p>}
-      <div className="mx-auto mt-8 overflow-hidden rounded-xl border border-field-border bg-field shadow-[0_10px_28px_rgba(60,70,50,0.15)] md:max-w-xl">
+      <div className="mx-auto mt-8 overflow-hidden rounded-xl border-2 border-gold/70 bg-field p-1 shadow-[0_16px_36px_-18px_rgba(0,0,0,0.5)] md:max-w-xl">
         <iframe
           title={t.mapOf(venue.name)}
           src={embed}
-          className="block h-64 w-full md:h-80"
+          className="block h-64 w-full rounded-lg md:h-80"
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
         />
@@ -26,7 +26,7 @@ export function Venue({ venue }: { venue: NonNullable<InvitationData["venue"]> }
         href={mapsUrl}
         target="_blank"
         rel="noreferrer"
-        className="mt-8 inline-flex h-10 items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-cream transition hover:bg-primary/90"
+        className="mt-8 inline-flex h-11 items-center justify-center rounded-full border border-gold bg-emerald px-6 font-display text-xs uppercase tracking-[0.2em] text-gold-light shadow-[0_10px_24px_-10px_rgba(0,0,0,0.6)] transition hover:-translate-y-0.5 md:text-sm rtl:text-sm"
       >
         {t.viewOnMaps}
       </a>

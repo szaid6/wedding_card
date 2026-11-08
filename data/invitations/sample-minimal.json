@@ -1,5 +1,5 @@
 {
-  "template": "royal-grace",
+  "template": "noor",
   "couple": {
     "groom": {
       "name": "Omar"
@@ -21,9 +21,6 @@
   "venue": {
     "name": "Taj Lands End",
     "address": "Bandstand, Bandra West, Mumbai"
-  },
-  "rsvp": {
-    "whatsappNumber": ""
   },
   "closing": {
     "message": "We can't wait to celebrate with you!"

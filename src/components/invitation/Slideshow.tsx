@@ -23,7 +23,7 @@ export function Slideshow({ images }: { images: string[] }) {
 
   return (
     <div
-      className="mx-auto w-full max-w-sm rounded-2xl bg-cream/50 p-2 shadow-[0_12px_30px_rgba(60,70,50,0.18)] md:max-w-md"
+      className="mx-auto w-full max-w-sm arch-top border-2 border-gold/70 bg-field p-2 shadow-[0_16px_36px_-18px_rgba(0,0,0,0.5)] md:max-w-md"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onTouchStart={(e) => (touchX.current = e.touches[0].clientX)}
@@ -34,7 +34,7 @@ export function Slideshow({ images }: { images: string[] }) {
         touchX.current = null;
       }}
     >
-      <div className="relative aspect-[3/2] overflow-hidden rounded-xl bg-field">
+      <div className="arch-top relative aspect-[4/5] overflow-hidden bg-field">
         <AnimatePresence initial={false}>
           <motion.div
             key={index}
@@ -63,7 +63,7 @@ export function Slideshow({ images }: { images: string[] }) {
                 aria-label={t.showPhoto(i + 1)}
                 onClick={() => setIndex(i)}
                 className={`h-1.5 rounded-full transition-all ${
-                  i === index ? "w-5 bg-primary" : "w-1.5 bg-cream/80 hover:bg-cream"
+                  i === index ? "w-5 bg-white" : "w-1.5 bg-white/60 hover:bg-white/80"
                 }`}
               />
             ))}

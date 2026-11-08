@@ -2,66 +2,168 @@
 
 /* Template colors come from CSS variables set on the invitation root (see lib/templates.ts). */
 @theme inline {
-  --color-ink: var(--t-ink, #3b4432);
-  --color-names: var(--t-names, #3e5634);
-  --color-primary: var(--t-primary, #4a5c3d);
-  --color-foreground: var(--t-foreground, #27331f);
-  --color-muted: var(--t-muted, #5f6d55);
-  --color-accent: var(--t-accent, #8a7a4e);
-  --color-divider: var(--t-divider, #6b7d55);
-  --color-cream: var(--t-cream, #faf9f4);
-  --color-field: var(--t-field, #f3eadb);
-  --color-field-border: var(--t-field-border, #d9cfbd);
-  --color-page: var(--t-page-bg, #d6c5ac);
+  --color-ink: var(--t-ink, #23362e);
+  --color-names: var(--t-names, #1c4d3f);
+  --color-primary: var(--t-primary, #1d5c4a);
+  --color-foreground: var(--t-foreground, #22302a);
+  --color-muted: var(--t-muted, #5e6b62);
+  --color-accent: var(--t-accent, #8c2f39);
+  --color-divider: var(--t-divider, #c9a24d);
+  --color-cream: var(--t-cream, #fdf8ec);
+  --color-field: var(--t-field, #f6eddb);
+  --color-field-border: var(--t-field-border, #e3d2ad);
+  --color-page: var(--t-page-bg, #0f3d33);
+  --color-gold: var(--t-gold, #b8893b);
+  --color-gold-light: var(--t-gold-light, #e6c97e);
+  --color-emerald: var(--t-emerald, #0f3d33);
+  --color-emerald-light: var(--t-emerald-light, #1d5c4a);
+  --color-maroon: var(--t-maroon, #8c2f39);
 
   /* Indirect so the [lang="ar"] block below can swap every role at once. */
-  --font-script: var(--f-script);
   --font-names: var(--f-names);
   --font-calligraphic: var(--f-calligraphic);
   --font-display: var(--f-display);
   --font-body: var(--f-body);
+  /* Quranic text: always Naskh, in either language. */
+  --font-arabic: var(--font-amiri), serif;
 }
 
 :root {
-  --f-script: var(--font-dancing), cursive;
-  --f-names: var(--font-great-vibes), cursive;
+  --f-names: var(--font-pinyon), cursive;
   --f-calligraphic: var(--font-cormorant), serif;
-  --f-display: var(--font-playfair), serif;
-  --f-body: var(--font-lora), serif;
+  --f-display: var(--font-cinzel), serif;
+  --f-body: var(--font-garamond), serif;
 }
 
 [lang="ar"] {
-  --f-script: var(--font-aref-ruqaa), var(--font-amiri), serif;
   --f-names: var(--font-aref-ruqaa), var(--font-amiri), serif;
   --f-calligraphic: var(--font-amiri), serif;
-  --f-display: var(--font-amiri), serif;
+  --f-display: var(--font-aref-ruqaa), var(--font-amiri), serif;
   --f-body: var(--font-amiri), serif;
   font-family: var(--f-body);
 }
 
 /* Arabic is cursive: letter-spacing breaks the joins, and there is no true italic. */
+[lang="ar"],
 [lang="ar"] * {
   letter-spacing: 0 !important;
   font-style: normal !important;
 }
 
 html {
-  background: #0f0f0f;
+  background: #0f3d33;
 }
 
 body {
   margin: 0;
-  font-family: var(--font-lora), serif;
+  font-family: var(--f-body);
   -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: transparent;
 }
 
-.text-glow {
-  text-shadow: 0 2px 14px rgba(255, 255, 255, 0.6);
+/* Eight-point star lattice (khatam), in gold over emerald or ivory. */
+.islamic-pattern {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48'%3E%3Cg fill='none' stroke='%23e6c97e' stroke-width='0.8' opacity='0.22'%3E%3Crect x='14' y='14' width='20' height='20'/%3E%3Crect x='14' y='14' width='20' height='20' transform='rotate(45 24 24)'/%3E%3Ccircle cx='24' cy='24' r='4.5'/%3E%3Cpath d='M0 0L10 10M48 0L38 10M0 48L10 38M48 48L38 38M24 0V6M24 48V42M0 24H6M48 24H42'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 48px 48px;
 }
 
-.text-glow-soft {
-  text-shadow: 0 1px 6px rgba(255, 255, 255, 0.5);
+.islamic-pattern-ivory {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48'%3E%3Cg fill='none' stroke='%23b8893b' stroke-width='0.8' opacity='0.16'%3E%3Crect x='14' y='14' width='20' height='20'/%3E%3Crect x='14' y='14' width='20' height='20' transform='rotate(45 24 24)'/%3E%3Ccircle cx='24' cy='24' r='4.5'/%3E%3Cpath d='M0 0L10 10M48 0L38 10M0 48L10 38M48 48L38 38M24 0V6M24 48V42M0 24H6M48 24H42'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 48px 48px;
+}
+
+/* Carved jaali screen for the doors. */
+.jaali {
+  background-color: #14493d;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48'%3E%3Cg fill='none' stroke='%23e6c97e' stroke-width='1.4' opacity='0.75'%3E%3Crect x='14' y='14' width='20' height='20'/%3E%3Crect x='14' y='14' width='20' height='20' transform='rotate(45 24 24)'/%3E%3Ccircle cx='24' cy='24' r='4.5'/%3E%3Cpath d='M0 0L10 10M48 0L38 10M0 48L10 38M48 48L38 38M24 0V6M24 48V42M0 24H6M48 24H42'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 36px 36px;
+  background-position: center;
+}
+
+/* Mughal arch top for cards: a domed crown over a square-ish base. Horizontal radii must sum to
+   100% or the browser scales every radius down and the dome flattens. */
+.arch-top {
+  border-radius: 50% 50% 1.25rem 1.25rem / 8rem 8rem 1.25rem 1.25rem;
+}
+
+@keyframes lantern-swing {
+  0%,
+  100% {
+    transform: rotate(-3deg);
+  }
+  50% {
+    transform: rotate(3deg);
+  }
+}
+
+.animate-lantern {
+  transform-origin: top center;
+  animation: lantern-swing 5s ease-in-out infinite;
+}
+
+@keyframes glow {
+  0%,
+  100% {
+    opacity: 0.75;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.animate-glow {
+  animation: glow 3s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.25;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-twinkle {
+  animation: twinkle 3.2s ease-in-out infinite;
+}
+
+@keyframes petal-fall {
+  0% {
+    transform: translate3d(0, -12vh, 0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.9;
+  }
+  85% {
+    opacity: 0.85;
+  }
+  100% {
+    transform: translate3d(var(--drift), 112vh, 0) rotate(var(--spin));
+    opacity: 0;
+  }
+}
+
+@keyframes petal-flutter {
+  0%,
+  100% {
+    transform: translateX(0) rotateX(0deg) rotateY(0deg);
+  }
+  50% {
+    transform: translateX(18px) rotateX(50deg) rotateY(150deg);
+  }
+}
+
+.animate-petal-fall {
+  animation: petal-fall var(--duration) linear var(--delay) infinite;
+}
+
+.animate-petal-flutter {
+  animation: petal-flutter 3.8s ease-in-out infinite;
 }
 
 @keyframes scroll-hint {
@@ -76,4 +178,17 @@ body {
 
 .animate-scroll-hint {
   animation: scroll-hint 2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-lantern,
+  .animate-glow,
+  .animate-twinkle,
+  .animate-petal-flutter,
+  .animate-scroll-hint {
+    animation: none;
+  }
+  .animate-petal-fall {
+    display: none;
+  }
 }

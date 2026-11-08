@@ -10,23 +10,20 @@ export function Timeline({ items }: { items: ScheduleItem[] }) {
     <div className="mx-auto max-w-md space-y-8 text-start">
       {groupByDate(items).map((group) => (
         <div key={group.date}>
-          <div className="mb-5 flex items-center gap-3">
-            <span className="h-px flex-1 bg-divider/40" />
-            <p className="text-center font-display text-sm font-semibold uppercase tracking-[0.15em] text-primary md:text-base">
+          <p className="mb-5 flex justify-center">
+            <span className="rounded-full border border-gold/70 bg-emerald px-4 py-1.5 text-center font-display text-xs font-medium uppercase tracking-[0.2em] text-gold-light shadow-sm md:text-sm rtl:text-sm">
               {formatLongDate(group.date, locale)}
-            </p>
-            <span className="h-px flex-1 bg-divider/40" />
-          </div>
-          <ol className="space-y-5">
+            </span>
+          </p>
+          <ol className="ms-3 space-y-4 border-s border-gold/60 ps-6">
             {group.items.map((item) => (
-              <li key={item.dateTime + item.name} className="flex gap-4">
-                <span className="w-20 shrink-0 pt-0.5 text-end text-sm font-semibold tabular-nums text-foreground">
-                  {formatTime(item.dateTime.slice(11, 16), locale)}
-                </span>
-                <div className="min-w-0 border-s border-divider/40 ps-4">
-                  <p className="break-words font-display text-lg font-semibold leading-tight text-primary">
-                    {item.name}
+              <li key={item.dateTime + item.name} className="relative">
+                <span className="absolute -start-[31px] top-5 size-3 rotate-45 bg-gold ring-4 ring-cream" />
+                <div className="rounded-xl border border-field-border bg-field/80 px-5 py-4 shadow-[0_8px_24px_-18px_rgba(0,0,0,0.5)]">
+                  <p className="font-display text-xs font-medium tracking-[0.2em] text-accent tabular-nums rtl:text-sm">
+                    {formatTime(item.dateTime.slice(11, 16), locale)}
                   </p>
+                  <p className="mt-1 break-words font-calligraphic text-2xl font-medium leading-snug text-primary">{item.name}</p>
                   {item.description && (
                     <p className="mt-1 whitespace-pre-wrap break-words text-sm leading-relaxed text-muted">
                       {item.description}
