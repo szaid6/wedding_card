@@ -23,8 +23,9 @@ const arefRuqaa = Aref_Ruqaa({
 const amiri = Amiri({ variable: "--font-amiri", subsets: ["arabic"], weight: ["400", "700"] });
 
 export const metadata: Metadata = {
-  title: "Wedding Invitations",
-  description: "Digital wedding invitations",
+  title: "Sayed Zaid & Zikra Shaikh - Nikah",
+  description:
+    "The Sayed family invites you to the Nikah of Sayed Zaid and Zikra Shaikh on Tuesday, 1 December 2026, at Kokni Hall, Mumbai.",
 };
 
 export const viewport: Viewport = {

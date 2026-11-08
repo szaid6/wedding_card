@@ -1,11 +1,10 @@
 "use client";
 
-import { Globe, Volume2, VolumeX } from "lucide-react";
-import { useCallback, useRef, useState, useSyncExternalStore, type ReactNode } from "react";
+import { useSyncExternalStore, type ReactNode } from "react";
 import { formatFullDate, formatTime, formatWeekday, zonedToEpoch } from "@/lib/dates";
 import type { I18n } from "@/lib/i18n";
 import { eventsFor, mainEventFor, textOf, type Invitation } from "@/lib/invitation";
-import { getTheme } from "@/lib/templates";
+import { embedIsChromeless, googleMapsEmbedUrl, hasMapsKey, staticMapProxyUrl } from "@/lib/maps";
 import { calendarLinks } from "../invitation/SaveTheDate";
 
 /** Everything the sea look prints, worked out once from the invitation. */
@@ -39,7 +38,25 @@ export function details(inv: Invitation, base: Invitation, { t, lang, locale }: 
       location: inv.venue ? [inv.venue.name, inv.venue.address].filter(Boolean).join(", ") : undefined,
     }).google,
     mapsUrl: base.venue?.mapsUrl ?? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`,
-    mapEmbed: `https://maps.google.com/maps?q=${encodeURIComponent(query)}&z=15&hl=${lang}&output=embed`,
+    mapStatic: staticMapProxyUrl({
+      query,
+      coords: base.venue?.coords,
+      zoom: base.venue?.mapZoom ?? 16,
+      mapType: base.venue?.mapType ?? "roadmap",
+    }),
+    mapEmbed: googleMapsEmbedUrl({
+      query,
+      placeId: base.venue?.placeId,
+      coords: base.venue?.coords,
+      lang,
+      zoom: base.venue?.mapZoom ?? 16,
+      mapType: base.venue?.mapType ?? "roadmap",
+    }),
+    mapEmbedChromeless: embedIsChromeless({
+      coords: base.venue?.coords,
+      placeId: base.venue?.placeId,
+      hasKey: hasMapsKey(),
+    }),
     timeOf: (dateTime: string) => formatTime(dateTime.slice(11, 16), locale),
   };
 }
@@ -80,74 +97,6 @@ export function Moon({ age, className, dark }: { age: number; className?: string
       <circle r={r} style={{ fill: dark }} />
       <path d={`M0 ${-r} A ${r} ${r} 0 0 ${limb} 0 ${r} A ${rx} ${r} 0 0 ${term} 0 ${-r} Z`} fill="currentColor" />
     </svg>
-  );
-}
-
-/** Background music that starts on a tap (browsers block autoplay). */
-export function useMusic(base: Invitation) {
-  const src = base.music?.enabled === false ? null : (base.music?.src ?? getTheme(base.template).assets.music);
-  const ref = useRef<HTMLAudioElement>(null);
-  const [playing, setPlaying] = useState(false);
-  const start = useCallback(() => {
-    ref.current
-      ?.play()
-      .then(() => setPlaying(true))
-      .catch(() => setPlaying(false));
-  }, []);
-  const toggle = useCallback(() => {
-    const audio = ref.current;
-    if (!audio) return;
-    if (audio.paused) start();
-    else {
-      audio.pause();
-      setPlaying(false);
-    }
-  }, [start]);
-  const audio = src ? <audio ref={ref} src={src} loop preload="none" /> : null;
-  return { audio, playing, start, toggle, enabled: Boolean(src) };
-}
-
-/** Language and music buttons, fixed to the lower corners. */
-export function Controls({
-  music,
-  i18n,
-  bilingual,
-  onToggleLang,
-  className,
-}: {
-  music: ReturnType<typeof useMusic>;
-  i18n: I18n;
-  bilingual: boolean;
-  onToggleLang: () => void;
-  className: string;
-}) {
-  const { t, lang } = i18n;
-  const button = `fixed bottom-4 z-40 flex h-10 items-center gap-2 rounded-full px-4 text-sm transition active:scale-95 ${className}`;
-  return (
-    <>
-      {music.audio}
-      {music.enabled && (
-        <button
-          type="button"
-          onClick={music.toggle}
-          aria-label={music.playing ? t.muteMusic : t.playMusic}
-          className={`${button} end-4 w-10 justify-center px-0`}
-        >
-          {music.playing ? <Volume2 className="size-4" /> : <VolumeX className="size-4" />}
-        </button>
-      )}
-      {bilingual && (
-        <button
-          type="button"
-          onClick={onToggleLang}
-          lang={lang === "en" ? "ar" : "en"}
-          className={`${button} start-4`}
-        >
-          <Globe className="size-4" />
-          {t.switchTo}
-        </button>
-      )}
-    </>
   );
 }
 

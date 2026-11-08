@@ -1,5 +1,6 @@
 {
   "template": "sea",
+  "music": { "enabled": false },
   "seo": {
     "title": "Sayed Zaid & Zikra Shaikh - Nikah",
     "description": "The Sayed family invites you to the Nikah of Sayed Zaid and Zikra Shaikh on Tuesday, 1 December 2026, at Kokni Hall, Mumbai."
@@ -31,8 +32,11 @@
   },
   "venue": {
     "name": "Kokni Hall",
-    "address": "Mumbai Central, Mumbai, Maharashtra",
-    "mapQuery": "Kokni Community Hall, Jehangir Boman Behram Road, Mumbai Central, Mumbai"
+    "address": "265, Jehangir Boman Behram Rd, Mumbai Central, Mumbai 400008",
+    "mapQuery": "Kokni Community Hall, 265 Jehangir Boman Behram Road, Mumbai Central, Mumbai 400008",
+    "coords": { "lat": 18.96856, "lng": 72.82497 },
+    "mapZoom": 17,
+    "mapType": "roadmap"
   },
   "duas": [
     {

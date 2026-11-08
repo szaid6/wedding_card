@@ -5,7 +5,8 @@ import { zonedToEpoch } from "@/lib/dates";
 import { I18nContext } from "@/lib/i18n";
 import type { Invitation } from "@/lib/invitation";
 import { useInvitation } from "../invitation/useInvitation";
-import { Arabic, Controls, details, Moon, moonAge, useDaysToGo, useMusic } from "./common";
+import { Arabic, details, Moon, moonAge, useDaysToGo } from "./common";
+import { VenueMap } from "./VenueMap";
 import { PALETTES, STARS, type Palette, type PaletteId, type Tone } from "./palettes";
 import s from "./sea.module.css";
 
@@ -61,10 +62,9 @@ function lightVars(pal: Palette, a: Tone, b: Tone, u: number): Record<string, st
 
 /** The wedding evening as one horizontal panorama by the Arabian Sea, from daylight to moonrise. */
 export function SeaView({ invitation: base }: { invitation: Invitation }) {
-  const { inv, i18n, lang, bilingual, group, toggleLang } = useInvitation(base);
+  const { inv, i18n, lang, group } = useInvitation(base);
   const { t } = i18n;
   const d = details(inv, base, i18n, group);
-  const music = useMusic(base);
   const daysToGo = useDaysToGo(d.main.date, d.main.time, inv.event.timezone);
   const todayAge = useSyncExternalStore(noSubscribe, tonight, () => null);
   const eventAge = moonAge(zonedToEpoch(d.main.date, d.main.time, inv.event.timezone));
@@ -186,12 +186,16 @@ export function SeaView({ invitation: base }: { invitation: Invitation }) {
         <>
           <h2 className={s.title}>{inv.venue?.name}</h2>
           <p className={s.text}>{inv.venue?.address}</p>
-          <iframe
+          <VenueMap
+            staticSrc={d.mapStatic}
+            embedSrc={d.mapEmbed}
             title={t.mapOf(inv.venue?.name ?? "")}
-            src={d.mapEmbed}
-            className={s.map}
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
+            frameClassName={s.mapFrame}
+            surfaceClassName={s.mapSurface}
+            imgClassName={s.mapImg}
+            clipClassName={s.mapClip}
+            mapClassName={d.mapEmbedChromeless ? s.map : s.mapCropped}
+            pinClassName={s.mapPin}
           />
           <a className={s.button} href={d.mapsUrl} target="_blank" rel="noreferrer">
             {t.openInMaps}
@@ -273,8 +277,10 @@ export function SeaView({ invitation: base }: { invitation: Invitation }) {
       for (const node of row.querySelectorAll<HTMLElement>("[data-motion]")) {
         const panel = node.closest("section") as HTMLElement;
         const along = Math.min(1, Math.max(0, (x + vw - leftOf(panel)) / (vw + panel.offsetWidth)));
-        const y = node.dataset.motion === "set" ? (along - 0.25) * 160 : (1 - along) * 70;
-        node.style.transform = `translate3d(0, ${y}%, 0)`;
+        const rise = node.dataset.motion === "rise";
+        const ty = (node.dataset.motion === "set" ? (along - 0.25) * 160 : (1 - along) * 70) + (rise ? -8 : 0);
+        const tx = rise ? 5 : 0;
+        node.style.transform = `translate3d(${tx}%, ${ty}%, 0)`;
       }
     };
     const onScroll = () => {
@@ -378,13 +384,6 @@ export function SeaView({ invitation: base }: { invitation: Invitation }) {
           </div>
         </div>
 
-        <Controls
-          music={music}
-          i18n={i18n}
-          bilingual={bilingual}
-          onToggleLang={toggleLang}
-          className="bg-[#c9a24d] text-[#0f3d33] hover:bg-[#e6c97e]"
-        />
       </div>
     </I18nContext>
   );

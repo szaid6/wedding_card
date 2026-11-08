@@ -60,6 +60,12 @@ export type InvitationData = {
     mapsUrl?: string;
     /** Text the embedded map searches for. Defaults to "name, address". */
     mapQuery?: string;
+    /** Google Place ID for a cleaner Embed API pin (optional). */
+    placeId?: string;
+    /** Pin center for the static map preview. */
+    coords?: { lat: number; lng: number };
+    mapZoom?: number;
+    mapType?: "roadmap" | "satellite" | "hybrid";
   };
   gifts?: TextSection;
   closing?: { message?: string; signature?: string };
